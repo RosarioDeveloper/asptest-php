@@ -8,9 +8,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateUserCommand extends Command
+class CreateUserPwdCommand extends Command
 {
-  protected static $defaultName = 'user:create';
+  protected static $defaultName = 'user:create-pwd';
 
   public function __construct()
   {
@@ -20,29 +20,27 @@ class CreateUserCommand extends Command
   protected function configure(): void
   {
     $this
-      ->addArgument('primeiro_nome', InputArgument::REQUIRED)
-      ->addArgument('ultimo_nome', InputArgument::REQUIRED)
-      ->addArgument('email', InputArgument::REQUIRED)
-      ->addArgument('idade', InputArgument::OPTIONAL);
+      ->addArgument('id', InputArgument::REQUIRED)
+      ->addArgument('password', InputArgument::REQUIRED)
+      ->addArgument('confirmar_password', InputArgument::REQUIRED);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
     $args = $input->getArguments();
-    $register = (object) UserController::register($args);
+    $pwd = (object) UserController::setPassword($args);
 
-    if ($register->status) {
-      $output->writeln(json_encode(
-        $register->user,
-        JSON_PRETTY_PRINT
-      ));
+    if ($pwd->status) {
+      $output->writeln("Sucesso:");
+      $output->writeln(" - {$pwd->message}");
       die();
     }
 
     $output->writeln("ERRO:");
-    foreach ($register->message as $i => $msg) {
-      $output->writeln("  - {$msg}");
+    foreach ($pwd->message as $i => $msg) {
+      $output->writeln($msg);
     }
+
     return Command::SUCCESS;
   }
 }

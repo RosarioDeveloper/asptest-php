@@ -7,10 +7,7 @@ class Validation
   public $data;
   function __construct()
   {
-    $this->data = [
-      'message' => [],
-      'fails' => false
-    ];
+    $this->data = ['message' => [], 'fails' => false];
   }
 
   public function make(array $rules, array $req)
@@ -24,14 +21,15 @@ class Validation
         if ($rule == "name") $this->validateName($index, $value);
         if ($rule == "email") $this->validateEmail($value);
         if ($rule == "age") $this->validateAge($value);
+        if ($rule == "pwd") $this->validatePwd($value, $req);
       }
     }
 
     $records = (array) $this->data['message'];
     if (count($records) > 0) $this->data['fails'] = true;
+
     return (object) $this->data;
   }
-
 
 
 
@@ -66,9 +64,22 @@ class Validation
     }
   }
 
-
-
-  function password()
+  function validatePwd($value, $req)
   {
+    $uppercase = preg_match('@[A-Z]@', $req['password']);
+    $lowercase = preg_match('@[a-z]@', $req['password']);
+    $number    = preg_match('@[0-9]@', $req['password']);
+
+    if ($req['password'] != $req['confirmar_password']) {
+      $this->data['message'][] = " - Confirmação de password inválida.";
+    }
+
+    if (!$uppercase || !$lowercase || !$number || strlen($req['password']) < 6) {
+      $this->data['message'][] = "A password deve possuir:";
+      $this->data['message'][] = " - No mínimo 6 caracteres";
+      $this->data['message'][] = " - 1 caracter especial";
+      $this->data['message'][] = " - 1 letra maiúscula";
+      $this->data['message'][] = " - 1 número";
+    }
   }
 }

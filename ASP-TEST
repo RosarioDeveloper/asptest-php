@@ -3,20 +3,21 @@
 
 namespace ASPTest;
 
-require __DIR__ . '/vendor/autoload.php';
-include __DIR__ . '/src/database/DBConnect.php';
-require __DIR__ . '/src/config/env.php';
+define('APP_URL', __DIR__);
+
+require APP_URL . '/vendor/autoload.php';
+require APP_URL . '/src/config/env.php';
+require APP_URL . '/src/config/bcrypt.php';
 
 use ASPTest\Commands\CreateUserCommand;
+use ASPTest\Commands\CreateUserPwdCommand;
 use ASPTest\Commands\MigrateDBCommand;
 use Symfony\Component\Console\Application;
-
-//$db = new Connect();
-define('APP_URL', __DIR__);
 
 $application = new Application();
 
 $application->add(new MigrateDBCommand());
 $application->add(new CreateUserCommand());
+$application->add(new CreateUserPwdCommand());
 
 $application->run();

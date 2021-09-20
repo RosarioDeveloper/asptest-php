@@ -2,11 +2,10 @@
 
 namespace ASPTest\Commands;
 
-
+use DBConnect;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use DBConnect as DB;
 
 class MigrateDBCommand extends Command
 {
@@ -18,15 +17,12 @@ class MigrateDBCommand extends Command
 
   protected function configure(): void
   {
-    /*$this
-      ->setDescription('Creates a new user.')
-      ->setHelp('This command allows you to create a user...');*/
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
     try {
-      $db = DB::conn();
+      $db = DBConnect::conn();
 
       $sql = file_get_contents(APP_URL . '/src/database/db.sql');
       $query = $db->prepare($sql);
@@ -35,6 +31,7 @@ class MigrateDBCommand extends Command
       $output->write("Migração efectuada com sucesso");
     } catch (\Throwable $th) {
       $output->write("ERROR: \n Erro ao gerar tabelas. Tente novamente");
+      //$output->write("ERROR: \n Erro ao gerar tabelas. Tente novamente");
     }
     return Command::SUCCESS;
   }

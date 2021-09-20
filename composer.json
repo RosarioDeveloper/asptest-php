@@ -13,6 +13,10 @@
   ],
   "require": {
     "symfony/console": "^5.3",
-    "symfony/dotenv": "^5.3"
+    "symfony/dotenv": "^5.3",
+    "polarising/bcrypt": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
   }
 }

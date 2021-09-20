@@ -6,13 +6,14 @@ services:
     working_dir: /var/www/
     volumes:
       - ./:/var/www
-    networks:
-      - asptest
 
   db:
     image: mysql
     container_name: asptest-db
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - 3307:3306
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -22,21 +23,3 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-    networks:
-      - asptest
-
-  nginx:
-    image: nginx:alpine
-    container_name: asptest-nginx
-    restart: always
-    ports:
-      - "9000:80"
-    volumes:
-      - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d
-    networks:
-      - asptest
-
-networks:
-  asptest:
-    driver: bridge
