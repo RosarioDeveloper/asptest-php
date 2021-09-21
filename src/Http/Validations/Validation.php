@@ -12,7 +12,7 @@ class Validation
 
   public function make(array $rules, array $req)
   {
-    //Faz a verificação dos tipos de validações
+    //Validation's type varification.
     foreach ($rules as $index => $rule) {
 
       if (isset($req[$index])) {
@@ -32,35 +32,32 @@ class Validation
   }
 
 
-
-
   function validateName($attribute, $value)
   {
     if (strlen($value) < 2 || strlen($value) > 35) {
-      $this->data['message'][] =
-        utf8_encode("O {$attribute} deve ter 2 a 35 caracteres no maximo.");
+      $this->data['message'][] = "The {$attribute} must have 2 to 35 maximum characters.";
     }
   }
 
   function validateEmail($value)
   {
     if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-      $this->data['message'][] = "Email invalido.";
+      $this->data['message'][] = "Invalid email.";
     }
   }
 
   function validateAge($value)
   {
-    if (!filter_var($value, FILTER_SANITIZE_NUMBER_INT)) {
-      $this->data['message'][] = "A idade deve conter apenas valores inteiros";
+    if (!filter_var($value, FILTER_VALIDATE_INT)) {
+      $this->data['message'][] = "The Age must have only integer values.";
     }
 
     if (strlen($value) > 4) {
-      $this->data['message'][] = "A idade deve conter apenas 4 digitos.";
+      $this->data['message'][] = "The Age must have only 4 digit.";
     }
 
     if ((int) $value > 150) {
-      $this->data['message'][] = "A idade não pode ser superior a 150.";
+      $this->data['message'][] = "The age can't be bigger to 150.";
     }
   }
 
@@ -70,16 +67,16 @@ class Validation
     $lowercase = preg_match('@[a-z]@', $req['password']);
     $number    = preg_match('@[0-9]@', $req['password']);
 
-    if ($req['password'] != $req['confirmar_password']) {
-      $this->data['message'][] = " - Confirmação de password inválida.";
+    if ($req['password'] != $req['confirm_password']) {
+      $this->data['message'][] = " - Invalid password confirm.";
     }
 
     if (!$uppercase || !$lowercase || !$number || strlen($req['password']) < 6) {
-      $this->data['message'][] = "A password deve possuir:";
-      $this->data['message'][] = " - No mínimo 6 caracteres";
-      $this->data['message'][] = " - 1 caracter especial";
-      $this->data['message'][] = " - 1 letra maiúscula";
-      $this->data['message'][] = " - 1 número";
+      $this->data['message'][] = "The password must have.";
+      $this->data['message'][] = " - minimum 6 characteres.";
+      $this->data['message'][] = " - 1 especial character.";
+      $this->data['message'][] = " - 1 capitall letter";
+      $this->data['message'][] = " - 1 number.";
     }
   }
 }

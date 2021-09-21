@@ -1,6 +1,15 @@
 <?php
 
+namespace ASPTest\config;
+
 use Symfony\Component\Dotenv\Dotenv;
 
-$dotenv = new Dotenv();
-$dotenv->load(APP_URL . '/.env');
+class env
+{
+  static function load()
+  {
+    $path = dirname(__DIR__, 2);
+    $dotenv = new Dotenv();
+    $dotenv->load($path . '/.env');
+  }
+}

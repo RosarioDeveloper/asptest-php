@@ -6,14 +6,16 @@ namespace ASPTest;
 define('APP_URL', __DIR__);
 
 require APP_URL . '/vendor/autoload.php';
-require APP_URL . '/src/config/env.php';
-require APP_URL . '/src/config/bcrypt.php';
+//require APP_URL . '/src/config/env.php';
 
 use ASPTest\Commands\CreateUserCommand;
 use ASPTest\Commands\CreateUserPwdCommand;
 use ASPTest\Commands\MigrateDBCommand;
+use ASPTest\config\env;
 use Symfony\Component\Console\Application;
 
+
+env::load();
 $application = new Application();
 
 $application->add(new MigrateDBCommand());

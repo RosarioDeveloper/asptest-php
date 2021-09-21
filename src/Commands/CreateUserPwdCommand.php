@@ -22,7 +22,7 @@ class CreateUserPwdCommand extends Command
     $this
       ->addArgument('id', InputArgument::REQUIRED)
       ->addArgument('password', InputArgument::REQUIRED)
-      ->addArgument('confirmar_password', InputArgument::REQUIRED);
+      ->addArgument('confirm_password', InputArgument::REQUIRED);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -31,14 +31,15 @@ class CreateUserPwdCommand extends Command
     $pwd = (object) UserController::setPassword($args);
 
     if ($pwd->status) {
-      $output->writeln("Sucesso:");
+      $output->writeln("Success:");
       $output->writeln(" - {$pwd->message}");
-      die();
     }
 
-    $output->writeln("ERRO:");
-    foreach ($pwd->message as $i => $msg) {
-      $output->writeln($msg);
+    if (!$pwd->status) {
+      $output->writeln("Error:");
+      foreach ($pwd->message as $i => $msg) {
+        $output->writeln($msg);
+      }
     }
 
     return Command::SUCCESS;

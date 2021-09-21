@@ -2,8 +2,10 @@
 
 namespace ASPTest\Http\Controllers;
 
+use ASPTest\config\HashBcrypt;
 use ASPTest\Models\User;
 use ASPTest\Http\Validations\Validation;
+
 
 class UserController
 {
@@ -12,15 +14,15 @@ class UserController
   {
   }
 
-  static public function register(array $req)
+  public function register(array $req)
   {
     try {
-      //Define as regras de validação
+      //Define the rules of validations
       $rules = [
-        'primeiro_nome' => 'name',
-        'ultimo_nome' => 'name',
+        'first_name' => 'name',
+        'last_name' => 'name',
         'email' => 'email',
-        'idade' => 'age'
+        'age' => 'age'
       ];
 
       $validation = new Validation();
@@ -31,15 +33,16 @@ class UserController
         'message' => $validate->message
       ];
 
-      //Verifica se o utilizador já existe
+      //Check if user already exist
       $user = User::find(['email', $req['email']]);
       if ($user->rowCount()) {
         return [
           'status' => false,
-          'message' => ["O email '{$req['email']}' já está a ser utiizado"]
+          'message' => ["The email '{$req['email']}' already in use."]
         ];
       }
 
+      //Create new user
       $register = User::create((object) $req);
       if ($register) {
         $user = User::findLast();
@@ -53,7 +56,7 @@ class UserController
     } catch (\PDOException $e) {
       return [
         'status' => false,
-        'message' => ['Não foi possível processar o seu pedido.']
+        'message' => [$e->getMessage(), "Your order coudn't be processed"]
       ];
     }
   }
@@ -66,7 +69,7 @@ class UserController
       if (!$user->rowCount()) {
         return [
           'status' => false,
-          'message' => ["Utilizador não encontrado."]
+          'message' => ["User not found."]
         ];
       }
 
@@ -79,18 +82,20 @@ class UserController
         'status' => false, 'message' => $validate->message
       ];
 
-      $req['password'] = bcrypt($req['password']);
+      //Create new password
+      $req['password'] = HashBcrypt::bcrypt($req['password']);
       $pwd = User::generatePwd((object) $req);
+
       if ($pwd) {
         return [
           'status' => true,
-          'message' => "A Password foi criada com sucesso"
+          'message' => "The password was successfuly created"
         ];
       }
     } catch (\Throwable $th) {
       return [
         'status' => false,
-        'message' => ['Não foi possível processar o seu pedido.']
+        'message' => ["The password couldn't be created."]
       ];
     }
   }

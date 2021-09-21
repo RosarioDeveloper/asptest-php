@@ -32,15 +32,15 @@ class User
   public static function create(object $req)
   {
     $db = DB::conn();
-    $age = isset($req->idade) ? $req->idade : null;
+    $age = isset($req->age) ? $req->age : null;
 
     $sql = "INSERT
       INTO `users` (first_name, last_name, email, age)
       VALUES(?,?,?,?)";
 
     $stm = $db->prepare($sql);
-    $stm->bindValue(1, $req->primeiro_nome, PDO::PARAM_STR);
-    $stm->bindValue(2, $req->ultimo_nome, PDO::PARAM_STR);
+    $stm->bindValue(1, $req->first_name, PDO::PARAM_STR);
+    $stm->bindValue(2, $req->last_name, PDO::PARAM_STR);
     $stm->bindValue(3, $req->email, PDO::PARAM_STR);
     $stm->bindValue(4, $age, PDO::PARAM_STR);
 

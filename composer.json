@@ -11,6 +11,9 @@
       "email": "rosariomassango@gmail.com"
     }
   ],
+  "scripts": {
+    "phpunit": "./vendor/bin/phpunit --colors"
+  },
   "require": {
     "symfony/console": "^5.3",
     "symfony/dotenv": "^5.3",

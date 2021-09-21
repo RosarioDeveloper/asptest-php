@@ -2,7 +2,7 @@
 
 namespace ASPTest\Commands;
 
-use DBConnect;
+use ASPTest\Database\Connect as DB;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,16 +22,16 @@ class MigrateDBCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
     try {
-      $db = DBConnect::conn();
+      $db = DB::conn();
 
-      $sql = file_get_contents(APP_URL . '/src/database/db.sql');
+      $sql = file_get_contents(APP_URL . '/src/Database/db.sql');
       $query = $db->prepare($sql);
       $query->execute();
 
-      $output->write("Migração efectuada com sucesso");
+      $output->write("Migration successfuly");
     } catch (\Throwable $th) {
-      $output->write("ERROR: \n Erro ao gerar tabelas. Tente novamente");
-      //$output->write("ERROR: \n Erro ao gerar tabelas. Tente novamente");
+      $output->writeln("Error:");
+      $output->writeln("Please, check the database connection.");
     }
     return Command::SUCCESS;
   }
