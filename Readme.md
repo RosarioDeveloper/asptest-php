@@ -35,8 +35,6 @@ git clone https://github.com/RosarioDeveloper/asptest-php.git
 
   OBS: The commands can be writed in capital or small letters
 
-! fwef
-
 ### Doing Unit Tests
 
 - Run all tests: docker-compose exec app composer phpunit tests
