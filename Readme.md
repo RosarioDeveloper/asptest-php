@@ -1,7 +1,6 @@
 ## ASPTest
 
 ### Used Features
-
 - Php
 - Composer
 - Mysql
@@ -19,25 +18,25 @@
 ```diff 
 git clone https://github.com/RosarioDeveloper/asptest-php.git
 ```
-- Enter in the folder project: cd asptest-php
+- Enter in the folder project: `cd asptest-php`
 - Create the .env file
-- Copy the content in the .env.example file to .env file
+- Copy the content in the env.example file to .env file
 - Change the database configuration data
-- Run docker-compose up -d
-- Run docker-compose exec app composer install
+- Run `docker-compose up -d` 
+- Run `docker-compose exec app composer install` 
 - Open your SGBD and create a database with the same name that you created in the .env file
-- Run docker-compose exec app ./ASP-TEST db:migrate to generate database tables
+- Run `docker-compose exec app ./ASP-TEST db:migrate` to generate database tables
 
 ### Commands
 
-- Create user: ./ASP-TEST USER:CREATE first_name last_name email age
-- Create password user: ./ASP-TEST USER:CREATE-PWD user_id pwd confirm_pwd
-- To execute: docker-compose exec app ./ASP-TEST USER:CREATE first_name last_name email age
+- Create user: `./ASP-TEST USER:CREATE first_name last_name email age` 
+- Create password user: `./ASP-TEST USER:CREATE-PWD user_id pwd confirm_pwd` 
+- To execute: `docker-compose exec app ./ASP-TEST USER:CREATE first_name last_name email age`
   
   OBS: The commands can be writed in capital or small letters
 
 ### Doing Unit Tests
 
-- Run all tests: docker-compose exec app composer phpunit tests
-- Run single test: docker-compose exec app composer phpunit {TestMethodName}
-- Ex: docker-compose exec app composer phpunit ./tests/CreateUserTest.php
+- Run all tests: `docker-compose exec app composer phpunit tests` 
+- Run single test: `docker-compose exec app composer phpunit {TestMethodName}` 
+- Ex: `docker-compose exec app composer phpunit ./tests/CreateUserTest.php`
