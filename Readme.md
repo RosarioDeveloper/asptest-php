@@ -20,11 +20,11 @@
 git clone https://github.com/RosarioDeveloper/asptest-php.git
 ```
 - Enter in the folder project: cd asptest-php
+- Create the .env file
 - Copy the content in the .env.example file to .env file
 - Change the database configuration data
 - Run docker-compose up -d
 - Run docker-compose exec app composer install
-- Create the .env file
 - Open your SGBD and create a database with the same name that you created in the .env file
 - Run docker-compose exec app ./ASP-TEST db:migrate to generate database tables
 
