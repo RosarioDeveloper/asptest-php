@@ -30,9 +30,9 @@ git clone https://github.com/RosarioDeveloper/asptest-php.git
 
 ### Commands
 
-- Create user: ./ASPTest USER:CREATE first_name last_name email age
-- Create password user: ./ASPTest USER:CREATE-PWD user_id pwd confirm_pwd
-- To execute: docker-compose exec app ./ASPTest USER:CREATE first_name last_name email age
+- Create user: ./ASP-TEST USER:CREATE first_name last_name email age
+- Create password user: ./ASP-TEST USER:CREATE-PWD user_id pwd confirm_pwd
+- To execute: docker-compose exec app ./ASP-TEST USER:CREATE first_name last_name email age
   
   OBS: The commands can be writed in capital or small letters
 
