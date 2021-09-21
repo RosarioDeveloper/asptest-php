@@ -32,11 +32,12 @@ git clone https://github.com/RosarioDeveloper/asptest-php.git
 
 - Create user: ./ASPTest USER:CREATE first_name last_name email age
 - Create password user: ./ASPTest USER:CREATE-PWD user_id pwd confirm_pwd
-- To execute digite: docker-compose exec app ./ASPTest USER:CREATE first_name last_name email age
+- To execute: docker-compose exec app ./ASPTest USER:CREATE first_name last_name email age
+  
   OBS: The commands can be writed in capital or small letters
 
 ### Doing Unit Tests
 
 - Run all tests: docker-compose exec app composer phpunit tests
 - Run single test: docker-compose exec app composer phpunit {TestMethodName}
-- Ex: docker-compose exec app phpunit ./tests/CreateUserTest.php
+- Ex: docker-compose exec app composer phpunit ./tests/CreateUserTest.php
