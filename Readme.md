@@ -41,4 +41,4 @@ git clone https://github.com/RosarioDeveloper/asptest-php.git
 
 - Run all tests: docker-compose exec app composer phpunit tests
 - Run single test: docker-compose exec app composer phpunit {TestMethodName}
-  ex: docker-compose exec app phpunit ./tests/CreateUserTest.php
+- Ex: docker-compose exec app phpunit ./tests/CreateUserTest.php
